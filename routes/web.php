@@ -27,8 +27,8 @@ Route::view('/todo/create','todos.create')->name('todo.create');
 Route::post('/todo/create','TodosController@store')->name('todo.store');
 Route::get('/todo','TodosController@index')->name('todo.view');
 Route::get('/todo/edit/{id}','TodosController@edit')->name('todo.edit');
-
-
+Route::post('/todo/edit/{id}','TodosController@update')->name('todo.update');
+Route::get('/todo/delete/{id}','TodosController@delete')->name('todo.delete');
 
 // Route::get('/get-second/{id}/{test}', function ($id) {
 // 	// dd("first get");

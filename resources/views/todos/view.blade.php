@@ -14,7 +14,9 @@
                   <a href="{{route('todo.edit',$todos['id'])}}">
                     <button class="btn btn-sm btn-warning float-right ml-4"><span class="fa fa-edit"></span></button>
                   </a>
-                  <button class="btn btn-sm btn-danger float-right"><span class="fa fa-trash"></span></button>
+                  <a href="{{route('todo.delete',$todos['id'])}}" onclick="confirm('Are you Sure?')">
+                    <button class="btn btn-sm btn-danger float-right"><span class="fa fa-trash"></span></button>
+                  </a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
