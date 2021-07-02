@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TodosList;
+use Session;
 class TodosController extends Controller
 {
     public function store(Request $request)
@@ -20,6 +21,7 @@ class TodosController extends Controller
         $todo->start_date = $request['start_date'];
         $todo->is_completed = $request->has('is_completed')?true:false;
         $todo->save();
+        Session::flash('todo_created','Todo Has Been created Successfully !');
         return redirect()->route('todo.view');
     }
 
@@ -40,7 +42,7 @@ class TodosController extends Controller
         $request->validate([
             'title' => 'required|min:2|max:30',
             'summary' => 'max:20',
-            'start_date' => 'after_or_equal:'.date('Y-m-d'),
+            'start_date' => 'required|after_or_equal:'.date('Y-m-d'),
             'is_completed' => ''
         ]);
         $todo = TodosList::find($id);
@@ -49,12 +51,16 @@ class TodosController extends Controller
         $todo->start_date = $request['start_date'];
         $todo->is_completed = $request->has('is_completed')?true:false;
         $todo->save();
+        Session::flash('todo_edited','Todo Has Been updated Successfully !');
         return redirect()->route('todo.view');
     }
 
     public function delete($id)
     {
-        dd($id);
+        $todo = TodosList::findorFail($id);
+        $todo->delete();
+        Session::flash('todo_deleted','Todo Has been Deleted Successfully');
+        return redirect()->back();
     }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTodosListsTable extends Migration
+class CreateTestModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTodosListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('todos_lists', function (Blueprint $table) {
-            $table->id(); //Primary Key,AutoIncrement
-            $table->string('title');
-            $table->mediumText('summary')->nullable();
-            $table->string('start_date');
-            $table->string('is_completed');
+        Schema::create('test_models', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ class CreateTodosListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todos_lists');
+        Schema::dropIfExists('test_models');
     }
 }
