@@ -57,7 +57,7 @@ class TodosController extends Controller
 
     public function delete($id)
     {
-        $todo = TodosList::findorFail($id);
+        $todo = TodosList::findOrFail($id);
         $todo->delete();
         Session::flash('todo_deleted','Todo Has been Deleted Successfully');
         return redirect()->back();

@@ -114,6 +114,24 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-header">Blog</li>
+          <li class="nav-item">
+            <a href="{{route('blog.create')}}" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Add Blogs
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('blog.view')}}" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                View Blogs
+              </p>
+            </a>
+          </li>
           {{-- <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>

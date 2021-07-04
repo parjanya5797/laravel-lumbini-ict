@@ -19,3 +19,7 @@
   <link rel="stylesheet" href="{{asset('public/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('public/plugins/summernote/summernote-bs4.min.css')}}">
+
+
+
+

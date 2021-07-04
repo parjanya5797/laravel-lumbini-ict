@@ -30,6 +30,15 @@ Route::get('/todo/edit/{id}','TodosController@edit')->name('todo.edit');
 Route::post('/todo/edit/{id}','TodosController@update')->name('todo.update');
 Route::get('/todo/delete/{id}','TodosController@delete')->name('todo.delete');
 
+//blog
+Route::view('/blog/create','blog.create')->name('blog.create');
+Route::post('/blog/create','BlogController@store')->name('blog.store');
+Route::get('/blog','BlogController@index')->name('blog.view');
+Route::get('/blog/{id}','BlogController@show')->name('blog.show');
+Route::get('/blog/edit/{id}','BlogController@edit')->name('blog.edit');
+Route::post('/blog/edit/{id}','BlogController@update')->name('blog.update');
+Route::get('/blog/delete/{id}','BlogController@delete')->name('blog.delete');
+
 // Route::get('/get-second/{id}/{test}', function ($id) {
 // 	// dd("first get");
 // 	dd($id,$test);
