@@ -39,6 +39,10 @@ Route::get('/blog/edit/{id}','BlogController@edit')->name('blog.edit');
 Route::post('/blog/edit/{id}','BlogController@update')->name('blog.update');
 Route::get('/blog/delete/{id}','BlogController@delete')->name('blog.delete');
 
+
+
+Route::post('/comment/create','CommentController@store')->name('comments.store');
+
 // Route::get('/get-second/{id}/{test}', function ($id) {
 // 	// dd("first get");
 // 	dd($id,$test);

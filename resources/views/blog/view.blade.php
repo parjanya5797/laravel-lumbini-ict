@@ -15,9 +15,9 @@
         {{Session::get('blog-edited')}}
       </div>
     @endif
-    @if(Session::has('todo_deleted'))
+    @if(Session::has('blog-deleted'))
       <div class="alert alert-danger">
-        {{Session::get('todo_deleted')}}
+        {{Session::get('blog-deleted')}}
       </div>
     @endif
 
