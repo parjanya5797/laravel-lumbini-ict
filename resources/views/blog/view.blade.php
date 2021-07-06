@@ -26,6 +26,7 @@
         <tr>
           <th>S.N.</th>
           <th>Title</th>
+          <th>Total Comments</th>
           <th>Show</th>
           <th>Actions</th>
         </tr>
@@ -35,6 +36,7 @@
             <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$post->title}}</td>
+            <td>{{$post->getCommentCount()}}</td>
             <td>
                 <span class="badge @php echo $post->show?'badge-success':'badge-danger' @endphp">{{$post->show?'Show':'Hide'}}</span>
             </td>

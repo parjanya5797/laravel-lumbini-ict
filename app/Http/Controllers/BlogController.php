@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Blogs;
+use App\PostComments;
 use Session;
 class BlogController extends Controller
 {
@@ -15,7 +16,7 @@ class BlogController extends Controller
            'description' => 'required',
            'image' => 'required|mimes:jpg,png,jpeg,gif,svg',
            'show' => '',
-       ]);
+       ]);  
         $blogs = new Blogs();
         $blogs->title = $request->title;
         $blogs->summary = $request->summary;
