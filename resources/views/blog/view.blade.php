@@ -32,20 +32,21 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($blog as $post)
+        @foreach($blog as $key=>$post)
             <tr>
-            <td>{{$loop->iteration}}</td>
+            <td>{{request()->has('page') && request()->page != 1?(request()->page - 1) * $blog->perpage() + $loop->iteration :$key +1 }}</td>
             <td>{{$post->title}}</td>
             <td>{{$post->getCommentCount()}}</td>
             <td>
                 <span class="badge @php echo $post->show?'badge-success':'badge-danger' @endphp">{{$post->show?'Show':'Hide'}}</span>
             </td>
             <td>
-                <a href="{{route('blog.show',$post['id'])}}"><span class="badge badge-primary">View</span></a>
-                <a href="{{route('blog.edit',$post['id'])}}"><span class="badge badge-warning">Edit</span></a>
+                <a href="{{route('blog.show',$post->id)}}"><span class="badge badge-primary">View</span></a>
+                <a href="{{route('blog.edit',$post->id)}}"><span class="badge badge-warning">Edit</span></a>
                 <a href="{{route('blog.delete',$post['id'])}}" onclick="return confirm('Are you sure')"><span class="badge badge-danger">Delete</span></a>
             </td>
             </tr>
+
         @endforeach
         </tbody>
         <tfoot>
@@ -57,6 +58,10 @@
         </tr>
         </tfoot>
       </table>
+      
+      <div class="links">
+        {{$blog->links()}}
+    </div>
 </div>
 
 @endsection

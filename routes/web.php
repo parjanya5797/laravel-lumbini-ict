@@ -13,6 +13,17 @@ use App\Http\Middleware\CheckValidation;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Login Routes
+Route::get('/admin-login','AdminLoginController@loginForm')->name('admin-login');
+Route::post('/admin-login','AdminLoginController@checkCredentials')->name('check-credentials');
+
+Route::get('/admin-register','AdminRegisterController@registerForm')->name('admin-register');
+Route::post('/admin-register','AdminRegisterController@saveUser')->name('save-user');
+
+
+
+
+
 Route::get('/', function () {
 	return view('dashboard.dashboard');
 })->name('dashboard');
@@ -42,6 +53,9 @@ Route::get('/blog/delete/{id}','BlogController@delete')->name('blog.delete');
 
 
 Route::post('/comment/create','CommentController@store')->name('comments.store');
+
+
+
 
 // Route::get('/get-second/{id}/{test}', function ($id) {
 // 	// dd("first get");

@@ -17,7 +17,7 @@ class CreatePostCommentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('blog_id');
             $table->mediumText('message');
-            $table->foreign('blog_id')->references('id')->on('blogs');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
             $table->timestamps();
         });
     }

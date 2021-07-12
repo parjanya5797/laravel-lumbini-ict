@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Blogs;
 use App\PostComments;
-use Session;
+use Illuminate\Support\Facades\Session;
+use DB;
 class BlogController extends Controller
 {
     public function store(Request $request)
@@ -35,9 +36,17 @@ class BlogController extends Controller
         return redirect()->route('blog.view');
     }
 
+        //where,orWhere,orderBy,pluck,skip,take,get,all,findOrFail,paginate
+
+
+
+
     public function index()
     {
-       $blog = Blogs::get();
+        $blog = Blogs::orderBy('id','desc')->paginate(3);
+        //In Case of Eloquent  [], -> eg. $blog['title'],$blog->title
+        // $blog = DB::table('blogs')->where('show',1)->get();
+        //In Case of DB -> eg. $blog->title
        return view('blog.view',compact('blog'));
     }
 
@@ -95,6 +104,7 @@ class BlogController extends Controller
     public function delete($id)
     {
         $blog = Blogs::findOrFail($id);
+        $comments = PostComments::where('blog_id',$blog['id'])->delete();
         if(file_exists('public/images/'.$blog['image']))
         {
             unlink('public/images/'.$blog['image']);
