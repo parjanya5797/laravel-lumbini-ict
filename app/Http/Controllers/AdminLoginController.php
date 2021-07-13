@@ -44,4 +44,11 @@ class AdminLoginController extends Controller
             return redirect()->back();
         }        
     }
+    
+    public function logoutUser()
+    {
+        Session::flush();
+        Session::flash('message','Logged Out Successfuly Bye Bye !!!!!!!.');
+        return redirect()->route('admin-login');
+    }
 }

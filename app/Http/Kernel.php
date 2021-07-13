@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkValidation' => \App\Http\Middleware\CheckValidation::class,
         'terminateCheck' => \App\Http\Middleware\Terminate::class,
+        'checkLogin' => \App\Http\Middleware\CheckLoginMiddleware::class,
+        'validateRoute' => \App\Http\Middleware\RevalidateMiddleware::class,
     ];
 
     // protected $middlewarePriority = [

@@ -2,9 +2,11 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -36,4 +38,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y,m-d');
+    }
+
+    // public function setPasswordAttribute($value)
+    // {
+    //     return Hash::make($value);
+    // }
 }
