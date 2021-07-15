@@ -19,6 +19,8 @@ class CreateBlogsTable extends Migration
             $table->mediumText('summary')->nullable();
             $table->longText('description');
             $table->string('image');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('show');
             $table->timestamps();
         });

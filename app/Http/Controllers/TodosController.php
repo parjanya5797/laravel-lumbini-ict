@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TodosList;
-use Session;
+use Illuminate\Support\Facades\Session;
 class TodosController extends Controller
 {
+    public function add()
+    {
+        return view('todos.create');
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([

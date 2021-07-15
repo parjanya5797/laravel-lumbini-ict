@@ -19,7 +19,7 @@ class CheckLoginMiddleware
         if(!$request->session()->has('UserLoggedIn'))
         {
             Session::flash('message','Please Login to Proceed further');
-            return redirect()->route('admin-login');
+            return redirect()->route('login');
         }
         return $next($request);
     }

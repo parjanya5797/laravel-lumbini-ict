@@ -27,6 +27,7 @@
           <th>S.N.</th>
           <th>Title</th>
           <th>Total Comments</th>
+          <th>Author</th>
           <th>Show</th>
           <th>Actions</th>
         </tr>
@@ -37,14 +38,17 @@
             <td>{{request()->has('page') && request()->page != 1?(request()->page - 1) * $blog->perpage() + $loop->iteration :$key +1 }}</td>
             <td>{{$post->title}}</td>
             <td>{{$post->getCommentCount()}}</td>
+            <td>{{$post->getAuthor()->name}}</td>
             <td>
                 <span class="badge @php echo $post->show?'badge-success':'badge-danger' @endphp">{{$post->show?'Show':'Hide'}}</span>
             </td>
             <td>
                 <a href="{{route('blog.show',$post->id)}}"><span class="badge badge-primary">View</span></a>
+                @if($post['user_id'] == Auth::user()->id)
                 <a href="{{route('blog.edit',$post->id)}}"><span class="badge badge-warning">Edit</span></a>
                 <a href="{{route('blog.delete',$post['id'])}}" onclick="return confirm('Are you sure')"><span class="badge badge-danger">Delete</span></a>
-            </td>
+                @endif
+              </td>
             </tr>
 
         @endforeach

@@ -16,4 +16,14 @@ class Blogs extends Model
         return $this->hasMany('App\PostComments','blog_id','id')->get();
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne('App\User','id','user_id')->get()->first();
+    }
+
 }
