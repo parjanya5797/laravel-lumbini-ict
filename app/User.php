@@ -44,6 +44,11 @@ class User extends Authenticatable
         return Carbon::parse($value)->format('Y,m-d');
     }
 
+    public function canAddBlog()
+    { 
+        return $this->create_blog;
+    }
+
     // public function setPasswordAttribute($value)
     // {
     //     return Hash::make($value);

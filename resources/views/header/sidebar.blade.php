@@ -117,6 +117,7 @@
           </li>
           
           <li class="nav-header">Blog</li>
+          @can('can-add-blog')
           <li class="nav-item">
             <a href="{{route('blog.create')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
@@ -125,6 +126,7 @@
               </p>
             </a>
           </li>
+          @endcan
           <li class="nav-item">
             <a href="{{route('blog.view')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>

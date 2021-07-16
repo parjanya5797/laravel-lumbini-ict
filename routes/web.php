@@ -45,7 +45,7 @@ Route::post('/todo/edit/{id}','TodosController@update')->name('todo.update');
 Route::get('/todo/delete/{id}','TodosController@delete')->name('todo.delete');
 
 //blog
-Route::view('/blog/create','blog.create')->name('blog.create');
+Route::get('/blog/create','BlogController@add')->name('blog.create');
 Route::post('/blog/create','BlogController@store')->name('blog.store');
 Route::get('/blog','BlogController@index')->name('blog.view');
 Route::get('/blog/{id}','BlogController@show')->name('blog.show');

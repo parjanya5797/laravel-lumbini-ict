@@ -31,6 +31,5 @@ class AppServiceProvider extends ServiceProvider
         View::share('post_notification',$post);
         View::share('post_count',$post_count);
 
-
     }
 }

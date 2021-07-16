@@ -8,11 +8,19 @@ use App\PostComments;
 use Illuminate\Support\Facades\Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BlogController extends Controller
 {
+    
+    public function add()
+    {
+        Gate::authorize('can-add-blog');
+        return view('blog.create');
+    }
     public function store(Request $request)
     {
+        Gate::authorize('can-add-blog');
         $request->validate([
             'title' => 'required',
             'summary' => 'max:200',
@@ -62,71 +70,67 @@ class BlogController extends Controller
     public function edit($id)
     {
         $data = Blogs::findOrFail($id);
-        if(!($data['user_id'] == Auth::user()->id))
-        {
-            abort(403);
+        // Gate::allows('checkBlogUser',$data);
+        Gate::authorize('checkBlogUser',$data);
+        // if(Gate::denies('checkBlogUser',[$data]))  //Gate::denies('checkBlogUser'); i.e !Gate::allows('checkBlogUser');
+        // {
+            //     abort(403);
+            // }
+            return view('blog.edit',compact('data'));
         }
-        return view('blog.edit',compact('data'));
-    }
-    
-    public function update(Request $request,$id)
-    {
         
-        $request->validate([
-            'title' => 'required',
-            'summary' => 'max:200',
-            'description' => 'required',
-            'image' => 'mimes:jpg,png,jpeg,gif,svg',
-            'show' => '',
-        ]);
-        
-        $blogs = Blogs::findOrFail($id);
-        if(!($blogs['user_id'] == Auth::user()->id))
+        public function update(Request $request,$id)
         {
-            abort(403);
-        }
-        $blogs->title = $request->title;
-        $blogs->summary = $request->summary;
-        $blogs->description = $request->description;
-        $blogs->show = $request->has('show')?true:false;
-        
-        //Save Image
-        if($request->has('image'))
-        {
-            if(file_exists('public/images/'.$blogs['image']))
+            
+            $request->validate([
+                'title' => 'required',
+                'summary' => 'max:200',
+                'description' => 'required',
+                'image' => 'mimes:jpg,png,jpeg,gif,svg',
+                'show' => '',
+            ]);
+            
+            $blogs = Blogs::findOrFail($id);
+            Gate::authorize('checkBlogUser',$blogs);
+            $blogs->title = $request->title;
+            $blogs->summary = $request->summary;
+            $blogs->description = $request->description;
+            $blogs->show = $request->has('show')?true:false;
+            
+            //Save Image
+            if($request->has('image'))
             {
-                unlink('public/images/'.$blogs['image']);
+                if(file_exists('public/images/'.$blogs['image']))
+                {
+                    unlink('public/images/'.$blogs['image']);
+                }
+                
+                $file = $request->image;
+                $filename = time().$file->getClientOriginalName();
+                $destination = public_path('images');   
+                $file->move($destination,$filename);
+                $blogs->image = $filename;
             }
             
-            $file = $request->image;
-            $filename = time().$file->getClientOriginalName();
-            $destination = public_path('images');   
-            $file->move($destination,$filename);
-            $blogs->image = $filename;
+            
+            $blogs->save();
+            Session::flash('blog-edited','Blog Edited Successfully');
+            return redirect()->route('blog.view');
+            
         }
         
         
-        $blogs->save();
-        Session::flash('blog-edited','Blog Edited Successfully');
-        return redirect()->route('blog.view');
-        
-    }
-    
-    
-    public function delete($id)
-    {
-        $blog = Blogs::findOrFail($id);
-        if(!($blog['user_id'] == Auth::user()->id))
+        public function delete($id)
         {
-            abort(403);
+            $blog = Blogs::findOrFail($id);
+            Gate::authorize('checkBlogUser',$blog);
+            $comments = PostComments::where('blog_id',$blog['id'])->delete();
+            if(file_exists('public/images/'.$blog['image']))
+            {
+                unlink('public/images/'.$blog['image']);
+            }
+            $blog->delete();
+            Session::flash('blog-deleted','Blog Deleted Successfully');
+            return redirect()->back();
         }
-        $comments = PostComments::where('blog_id',$blog['id'])->delete();
-        if(file_exists('public/images/'.$blog['image']))
-        {
-            unlink('public/images/'.$blog['image']);
-        }
-        $blog->delete();
-        Session::flash('blog-deleted','Blog Deleted Successfully');
-        return redirect()->back();
     }
-}
