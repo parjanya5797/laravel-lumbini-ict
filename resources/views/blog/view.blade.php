@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container mt-4">
-  
+  @can('can-add-blog')
   <a href="{{route('blog.create')}}"><button class="btn btn-primary">Add Blog</button></a>
-  
+  @endcan
   @if(Session::has('blog-saved'))
   <div class="alert alert-success">
     {{Session::get('blog-saved')}}

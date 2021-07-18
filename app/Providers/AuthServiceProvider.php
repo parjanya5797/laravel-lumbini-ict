@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
     */
     protected $policies = [
         // 'App\Blogs' => 'App\Policies\BlogPolicy',
+        // 'App\TodosList' => 'App\Policies\TodosPolicy',
     ];
     
     /**
@@ -35,6 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         {
             return $user->canAddBlog();
         });
+
+
+        
         
 
         

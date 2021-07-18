@@ -19,6 +19,8 @@ class CreateTodosListsTable extends Migration
             $table->mediumText('summary')->nullable();
             $table->string('start_date');
             $table->string('is_completed');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

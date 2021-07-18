@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->create_blog;
     }
 
+    public function canAddTodoList()
+    { 
+        return $this->create_todo;
+    }
+
     // public function setPasswordAttribute($value)
     // {
     //     return Hash::make($value);

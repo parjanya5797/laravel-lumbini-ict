@@ -26,12 +26,16 @@
             <div class="card @php echo $todos['is_completed']?'card-success':'card-danger' @endphp">
                 <div class="card-header">
                   <h3 class="card-title">{{$todos['title']}}</h3>
+                  @can('edit',$todos)
                   <a href="{{route('todo.edit',$todos['id'])}}">
                     <button class="btn btn-sm btn-warning float-right ml-4"><span class="fa fa-edit"></span></button>
                   </a>
+                  @endcan
+                  @can('delete',$todos)
                   <a href="{{route('todo.delete',$todos['id'])}}" onclick="return confirm('Are you Sure?')">
                     <button class="btn btn-sm btn-danger float-right"><span class="fa fa-trash"></span></button>
                   </a>
+                  @endcan
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

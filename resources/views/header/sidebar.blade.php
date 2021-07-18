@@ -100,12 +100,14 @@
           
           <li class="nav-header">Todos</li>
           <li class="nav-item">
+            @can('create',App\TodosList::class)
             <a href="{{route('todo.create')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Add Todos
               </p>
             </a>
+            @endcan
           </li>
           <li class="nav-item">
             <a href="{{route('todo.view')}}" class="nav-link">
