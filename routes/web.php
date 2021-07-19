@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use App\Http\Middleware\CheckValidation;
+use App\Mail\SendMail;
+use App\Mail\WelcomeMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,12 @@ Route::group(['middleware' => ['auth','validateRoute']],function(){
     
     Route::post('/comment/create','CommentController@store')->name('comments.store');
     
+    Route::get('/view-mail-layout',function(){
+        return new SendMail();
+        // return new WelcomeMail();
+    });
+
+    Route::post('/send-quick-email','HomeController@sendMail')->name('send-quick-email');
     
 });
 
