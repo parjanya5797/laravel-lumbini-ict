@@ -1,13 +1,9 @@
 @component('mail::message')
-# Introduction
+# {{$contents['subject']}}
 
-The body of your message.
-
-@component('mail::button', ['url' => '','color'=>'green'])
-Go to Webiste
-@endcomponent
+{{$contents['message']}}
 
 
 Thanks,<br>
-{{ config('app.name') }}
+Test College
 @endcomponent
