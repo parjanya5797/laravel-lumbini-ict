@@ -30,9 +30,6 @@ class SendMail extends Mailable
     {
         return $this->markdown('emails.mail.sendMail')
         ->subject($this->contents['subject'])
-        ->attach($this->contents['file'],[
-            'as' => 'bridge.jpg',
-            'mimes' => 'application/image',
-        ]);
+        ->attach($this->contents['attachment']);
     }
 }

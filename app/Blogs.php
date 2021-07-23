@@ -6,14 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class Blogs extends Model
 {
-    public function getCommentCount()
-    {
-        return $this->hasMany('App\PostComments','blog_id','id')->count();
-    }
-
     public function getComments()
     {
-        return $this->hasMany('App\PostComments','blog_id','id')->get();
+        return $this->hasMany('App\PostComments','blog_id','id');
     }
 
     public function getCreatedAtAttribute($value)
@@ -23,7 +18,7 @@ class Blogs extends Model
 
     public function getAuthor()
     {
-        return $this->hasOne('App\User','id','user_id')->get()->first();
+        return $this->hasOne('App\User','id','user_id');
     }
 
 }

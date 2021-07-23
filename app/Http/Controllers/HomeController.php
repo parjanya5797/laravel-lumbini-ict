@@ -20,9 +20,9 @@ class HomeController extends Controller
             'email' => 'required',
             'subject' => 'required',
             'message' => 'required',
-            'file' => 'required|mimes:jpg,png,gif,pdf,xlsx,docx,pptx',
+            'attachment' => 'required|mimes:jpg,png,gif,pdf,xlsx,docx,pptx',
         ]);
-        $file = $request->file;
+        $file = $request->attachment;
         $file_name = time().'.'.$file->getClientOriginalName();
         $destination = 'public/mail_docs/';   
         $file->move($destination,$file_name);
@@ -30,7 +30,7 @@ class HomeController extends Controller
             'email' => $request->email,
             'subject' => $request->subject,
             'message' => $request->message,
-            'file' => $destination.'/'.$file_name,
+            'attachment' => $destination.$file_name,
         ];
         Mail::to($request->email)->send(new SendMail($mail_contents));
         $message = "Mail Sent to ".$request->email."Successfully";

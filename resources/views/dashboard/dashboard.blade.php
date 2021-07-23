@@ -104,7 +104,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="{{route('send-quick-email')}}" method="POST">
+          <form action="{{route('send-quick-email')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
               <div class="form-group">
@@ -114,6 +114,10 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">Subject</label>
                 <input type="text" name="subject" class="form-control" id="exampleInputPassword1" placeholder="Enter Subject Here">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Attach Files</label>
+                <input type="file" name="attachment" class="form-control">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Message</label>

@@ -54,7 +54,10 @@ class BlogController extends Controller
     
     public function index()
     {
-        $blog = Blogs::orderBy('id','desc')->paginate(3);
+        $blog = Blogs::with('getAuthor','getComments')->orderBy('id','desc')->paginate(3);
+        // $blog = Blogs::orderBy('id','desc')->paginate(3);
+        
+        // dd($blog);
         //In Case of Eloquent  [], -> eg. $blog['title'],$blog->title
         // $blog = DB::table('blogs')->where('show',1)->get();
         //In Case of DB -> eg. $blog->title
@@ -62,26 +65,27 @@ class BlogController extends Controller
     }
     
     public function show($id)
-    {
-        $blog = Blogs::findOrFail($id);
+    {   
+        $blog = Blogs::with('getAuthor','getComments')->findOrFail($id);
         return view('blog.show',compact('blog'));
     }
     
-    public function edit($id)
+    public function edit(Blogs $blog)
     {
-        $data = Blogs::findOrFail($id);
+        //Removed by route Model Binding
+        // $data = Blogs::findOrFail($id);
         // Gate::allows('checkBlogUser',$data);
-        Gate::authorize('checkBlogUser',$data);
+        Gate::authorize('checkBlogUser',$blog);
         // if(Gate::denies('checkBlogUser',[$data]))  //Gate::denies('checkBlogUser'); i.e !Gate::allows('checkBlogUser');
         // {
             //     abort(403);
             // }
-            return view('blog.edit',compact('data'));
+            return view('blog.edit',compact('blog'));
         }
         
         public function update(Request $request,$id)
         {
-            
+            // dd($request);
             $request->validate([
                 'title' => 'required',
                 'summary' => 'max:200',
@@ -98,7 +102,7 @@ class BlogController extends Controller
             $blogs->show = $request->has('show')?true:false;
             
             //Save Image
-            if($request->has('image'))
+            if(isset($request->image))
             {
                 if(file_exists('public/images/'.$blogs['image']))
                 {

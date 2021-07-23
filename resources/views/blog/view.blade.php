@@ -37,8 +37,8 @@
       <tr>
         <td>{{request()->has('page') && request()->page != 1?(request()->page - 1) * $blog->perpage() + $loop->iteration :$key +1 }}</td>
         <td>{{$post->title}}</td>
-        <td>{{$post->getCommentCount()}}</td>
-        <td>{{$post->getAuthor()->name}}</td>
+        <td>{{count($post->getComments)}}</td>
+        <td>{{$post->getAuthor->name}}</td>
         <td>
           <span class="badge @php echo $post->show?'badge-success':'badge-danger' @endphp">{{$post->show?'Show':'Hide'}}</span>
         </td>

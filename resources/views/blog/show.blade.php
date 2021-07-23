@@ -27,20 +27,20 @@ View Blog Detail
             <h5> <strong>Description:</strong></h5>
             {!!$blog['description']!!}
         </div>
-
-
-
-
-
         
-
+        
+        
+        
+        
+        
+        
     </div>
-
+    
     
     <hr>
-    <h2 class="text text-center">Comments({{$blog->getCommentCount()}})</h2>
+    <h2 class="text text-center">Comments({{count($blog->getComments)}})</h2>
     <div class="row">
-        @foreach($blog->getComments() as $c)
+        @foreach($blog->getComments as $c)
         <div class="col-md-12" style="border:dashed; margin-bottom:4px">
             {{$loop->iteration}})
             <p>{{$c['message']}}</p>   
@@ -52,7 +52,7 @@ View Blog Detail
         @endforeach
         
     </div>
-
+    
     <h3>Add Comment</h3>
     <form action="{{route('comments.store')}}" method="POST">
         @csrf
@@ -64,6 +64,6 @@ View Blog Detail
         <hr>
         <button type="submit" class="btn btn-success">Add Comment</button>
     </form>
-
+    
 </div>
 @endsection

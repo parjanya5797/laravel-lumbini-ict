@@ -24,27 +24,27 @@
                             </ul>
                         </div>
                     @endif --}}
-                    <form action="{{route('blog.update',$data['id'])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('blog.update',$blog['id'])}}" method="POST" enctype="multipart/form-blog">
                       @csrf
                       <div class="card-body">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Title</label>
-                          <input type="text" name="title" class="form-control" placeholder="Enter Title" value="{{$data['title']}}">
+                          <input type="text" name="title" class="form-control" placeholder="Enter Title" value="{{$blog['title']}}">
                           @error('title')
                               <div class="text text-danger"><small>{{$message}}</small></div>
                           @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Summary</label>
-                            <textarea type="text" name="summary" class="form-control" >{{$data['summary']}}</textarea>
+                            <textarea type="text" name="summary" class="form-control" >{{$blog['summary']}}</textarea>
                             @error('summary')
                             <div class="text text-danger"><small>{{$message}}</small></div>
                             @enderror
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">Description</label>
-                            <textarea type="text" name="description" id="summernote" class="form-control" >{!!$data['description']!!}</textarea>
-                            @error('summary')
+                            <textarea type="text" name="description" id="summernote" class="form-control" >{!!$blog['description']!!}</textarea>
+                            @error('description')
                             <div class="text text-danger"><small>{{$message}}</small></div>
                             @enderror
                           </div>
@@ -52,13 +52,13 @@
                           <div class="form-group">
                             <label for="exampleInputEmail1">Image</label>
                             <input type="file" name="image" class="form-control">
-                            @error('summary')
+                            @error('image')
                             <div class="text text-danger"><small>{{$message}}</small></div>
                             @enderror
                           </div>
                       
                         <div class="form-check">
-                          <input type="checkbox" name="show" class="form-check-input" @php echo $data['show']?'checked':'' @endphp>
+                          <input type="checkbox" name="show" class="form-check-input" @php echo $blog['show']?'checked':'' @endphp>
                           <label class="form-check-label">Show</label>
 
                           @error('status')
